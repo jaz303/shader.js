@@ -31,11 +31,15 @@
         gl.enable(gl.DEPTH_TEST);
         gl.depthFunc(gl.LEQUAL);
         
+        // Compile and link a shader program with the given source - returns a proxy object
         var prog = Shader.compile(gl,
                                   document.getElementById('vertex').textContent,
                                   document.getElementById('fragment').textContent);
         
+        // Use the compiled program
         prog.use();
+        
+        // Enable vertex attribute array for attribute `aVertexPosition`
         prog.aVertexPosition.enableVertexArray();
         
         initBuffers();
@@ -50,8 +54,11 @@
           mvMatrix = mvMatrix.x(Matrix.Translation($V([-0.0, 0.0, -6.0])).ensure4x4());
           
           gl.bindBuffer(gl.ARRAY_BUFFER, squareVerticesBuffer);
+          
+          // Set up the vertex attribute pointer
           prog.aVertexPosition.pointer(3, gl.FLOAT, false, 0, 0);
           
+          // Assign the uniform projection and modelview matrices 
           prog.uPMatrix = new Float32Array(perspectiveMatrix.flatten());
           prog.uMVMatrix = new Float32Array(mvMatrix.flatten());
           
