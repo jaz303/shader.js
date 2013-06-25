@@ -169,8 +169,6 @@ var Shader = (function() {
       attrib(obj, gl, i, a);
     }
     
-    console.log(obj);
-    
     return obj;
   }
   
