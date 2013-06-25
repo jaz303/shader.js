@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>shader.js demo</title>
+    <script src='../shader.js'></script>
+    <script>
+      function init() {
+        var canvas = document.getElementById('canvas'),
+            gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+            
+        var vss = document.getElementById('vertex').innerText,
+            fss = document.getElementById('fragment').innerText;
+            
+        var prog = Shader.compile(gl, vss, fss);
+        
+      }
+    </script>
+  </head>
+  <body onload='init()'>
+    <canvas id='canvas' width='800' height='600' />
+    <script id='vertex' type='text/glsl'>
+      attribute vec3 aVertexPosition;
+
+      uniform mat4 uMVMatrix;
+      uniform mat4 uPMatrix;
+
+      void main(void) {
+        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+      }
+    </script>
+    <script id='fragment' type='text/glsl'>
+      void main(void) {
+        gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+      }
+    </script>
+  </body>
+</html>
