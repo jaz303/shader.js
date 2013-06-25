@@ -4,35 +4,83 @@
   <head>
     <title>shader.js demo</title>
     <script src='../shader.js'></script>
+    <script src='sylvester.js'></script>
+    <script src='glUtils.js'></script>
     <script>
+      var gl, squareVerticesBuffer;
+    
+      function initBuffers() {
+        squareVerticesBuffer = gl.createBuffer();
+        gl.bindBuffer(gl.ARRAY_BUFFER, squareVerticesBuffer);
+        var vertices = [
+          1.0,  1.0,  0.0,
+          -1.0, 1.0,  0.0,
+          1.0,  -1.0, 0.0,
+          -1.0, -1.0, 0.0
+        ];
+        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+      }
+    
       function init() {
-        var canvas = document.getElementById('canvas'),
-            gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-            
-        var vss = document.getElementById('vertex').innerText,
-            fss = document.getElementById('fragment').innerText;
-            
-        var prog = Shader.compile(gl, vss, fss);
+        var canvas = document.getElementById('canvas');
+        
+        gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        
+        gl.clearColor(0.0, 0.0, 0.0, 1.0);
+        gl.clearDepth(1.0);
+        gl.enable(gl.DEPTH_TEST);
+        gl.depthFunc(gl.LEQUAL);
+        
+        var prog = Shader.compile(gl,
+                                  document.getElementById('vertex').textContent,
+                                  document.getElementById('fragment').textContent);
+        
+        prog.use();
+        prog.aVertexPosition.enableVertexArray();
+        
+        initBuffers();
+        
+        setInterval(function() {
+          
+          gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+          
+          var perspectiveMatrix = makePerspective(45, 640.0/480.0, 0.1, 100.0);
+          
+          var mvMatrix = Matrix.I(4);
+          mvMatrix = mvMatrix.x(Matrix.Translation($V([-0.0, 0.0, -6.0])).ensure4x4());
+          
+          gl.bindBuffer(gl.ARRAY_BUFFER, squareVerticesBuffer);
+          prog.aVertexPosition.pointer(3, gl.FLOAT, false, 0, 0);
+          
+          prog.uPMatrix = new Float32Array(perspectiveMatrix.flatten());
+          prog.uMVMatrix = new Float32Array(mvMatrix.flatten());
+          
+          gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        
+        }, 15);
         
       }
     </script>
   </head>
   <body onload='init()'>
     <canvas id='canvas' width='800' height='600' />
-    <script id='vertex' type='text/glsl'>
-      attribute vec3 aVertexPosition;
+    
+<script id='vertex' type='text/glsl'>
+attribute vec3 aVertexPosition;
 
-      uniform mat4 uMVMatrix;
-      uniform mat4 uPMatrix;
+uniform mat4 uMVMatrix;
+uniform mat4 uPMatrix;
 
-      void main(void) {
-        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
-      }
-    </script>
-    <script id='fragment' type='text/glsl'>
-      void main(void) {
-        gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
-      }
-    </script>
+void main(void) {
+  gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+}
+</script>
+
+<script id='fragment' type='text/glsl'>
+void main(void) {
+  gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+}
+</script>
+
   </body>
 </html>
