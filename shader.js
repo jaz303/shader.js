@@ -147,21 +147,23 @@ var Shader = (function() {
     
     var uniformCount = gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS);
     for (var i = 0; i < uniformCount; ++i) {
-      var u = gl.getActiveUniform(program, i);
+      var u   = gl.getActiveUniform(program, i),
+          loc = gl.getUniformLocation(program, u.name);
+          
       switch (u.type) {
-        case gl.INT           : u_int(obj, gl, i, u); break;
-        case gl.INT_VEC2      : u_intVec2(obj, gl, i, u); break;
-        case gl.INT_VEC3      : u_intVec3(obj, gl, i, u); break;
-        case gl.INT_VEC4      : u_intVec4(obj, gl, i, u); break;
-        case gl.FLOAT         : u_float(obj, gl, i, u); break;
-        case gl.FLOAT_VEC2    : u_floatVec2(obj, gl, i, u); break;
-        case gl.FLOAT_VEC3    : u_floatVec3(obj, gl, i, u); break;
-        case gl.FLOAT_VEC4    : u_floatVec4(obj, gl, i, u); break;
-        case gl.FLOAT_MAT2    : u_mat2(obj, gl, i, u); break;
-        case gl.FLOAT_MAT3    : u_mat3(obj, gl, i, u); break;
-        case gl.FLOAT_MAT4    : u_mat4(obj, gl, i, u); break;
-        case gl.SAMPLER_2D    : u_float(obj, gl, i, u); break;
-        case gl.SAMPLER_CUBE  : u_float(obj, gl, i, u); break;
+        case gl.INT           : u_int(obj, gl, loc, u); break;
+        case gl.INT_VEC2      : u_intVec2(obj, gl, loc, u); break;
+        case gl.INT_VEC3      : u_intVec3(obj, gl, loc, u); break;
+        case gl.INT_VEC4      : u_intVec4(obj, gl, loc, u); break;
+        case gl.FLOAT         : u_float(obj, gl, loc, u); break;
+        case gl.FLOAT_VEC2    : u_floatVec2(obj, gl, loc, u); break;
+        case gl.FLOAT_VEC3    : u_floatVec3(obj, gl, loc, u); break;
+        case gl.FLOAT_VEC4    : u_floatVec4(obj, gl, loc, u); break;
+        case gl.FLOAT_MAT2    : u_mat2(obj, gl, loc, u); break;
+        case gl.FLOAT_MAT3    : u_mat3(obj, gl, loc, u); break;
+        case gl.FLOAT_MAT4    : u_mat4(obj, gl, loc, u); break;
+        case gl.SAMPLER_2D    : u_float(obj, gl, loc, u); break;
+        case gl.SAMPLER_CUBE  : u_float(obj, gl, loc, u); break;
         default               : throw "what is this?";
       }
     }
@@ -169,7 +171,7 @@ var Shader = (function() {
     var attributeCount = gl.getProgramParameter(program, gl.ACTIVE_ATTRIBUTES);
     for (var i = 0; i < attributeCount; ++i) {
       var a = gl.getActiveAttrib(program, i);
-      attrib(obj, gl, i, a);
+      attrib(obj, gl, gl.getAttribLocation(program, a.name), a);
     }
     
     return obj;
