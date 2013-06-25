@@ -186,9 +186,16 @@ var Shader = (function() {
       throw e;
     }
     
-    return augmentProgram(gl, createProgram(gl, vs, fs));
+    return link(gl, vs, fs);
   }
   
-  return { compile : compile };
+  function link(gl, vertexShader, fragmentShader) {
+    return augmentProgram(gl, createProgram(gl, vertexShader, fragmentShader));
+  }
+  
+  return {
+    compile : compile,
+    link    : link
+  };
   
 })();
