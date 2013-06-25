@@ -128,6 +128,9 @@ var Shader = (function() {
     obj[a.name] = {
       pointer: function(size, type, normalized, stride, offset) {
         return gl.vertexAttribPointer(i, size, type, normalized, stride, offset);
+      },
+      enableVertexArray: function() {
+        return gl.enableVertexAttribArray(i);
       }
     }
   }
