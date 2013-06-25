@@ -142,7 +142,7 @@ var Shader = (function() {
     var obj = {
       gl      : gl,
       program : program,
-      use     : function() { gl.useProgram(program); }
+      use     : function() { return gl.useProgram(program); }
     };
     
     var uniformCount = gl.getProgramParameter(program, gl.ACTIVE_UNIFORMS);
