@@ -69,6 +69,10 @@ And to set the attribute from the currently bound buffer (the arguments are the 
 
 A very simple demo, based on Mozilla's [Getting started with WebGL](https://developer.mozilla.org/en-US/docs/Web/WebGL/Getting_started_with_WebGL), can be found in the `demo` directory. The commented lines therein show `shader.js` in operation.
 
+## TODO
+
+  * Support samplers
+
 ## License
 
 &copy; 2013 Jason Frame [ [@jaz303](http://twitter.com/jaz303) / [jason@onehackoranother.com](mailto:jason@onehackoranother.com) ]  
