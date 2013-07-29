@@ -124,14 +124,19 @@ var Shader = (function() {
   //
   // Attributes
   
+  // TODO: support gl.vertexAttribnf
   function attrib(obj, gl, i, a) {
     obj[a.name] = {
       pointer: function(size, type, normalized, stride, offset) {
         return gl.vertexAttribPointer(i, size, type, normalized, stride, offset);
       },
-      enableVertexArray: function() {
+      enable: function() {
         return gl.enableVertexAttribArray(i);
-      }
+      },
+      disable: function() {
+        return gl.disableVertexAttribArray(i);
+      },
+      location: i
     }
   }
   

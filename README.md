@@ -57,9 +57,10 @@ For consistency, all setters are currently mapped to the array-consuming (i.e. `
 
 ### Attributes
 
-Attributes also get a couple of helper methods. Firstly, to enable vertex attribute arrays:
+Attributes also get a couple of helper methods. Firstly, to enable/disable vertex attribute arrays:
 
-    program.aVertexPosition.enableVertexArray();
+    program.aVertexPosition.enable();
+    program.aVertexPosition.disable();
     
 And to set the attribute from the currently bound buffer (the arguments are the same as the last 5 to the standard `gl.vertexAttribPointer()` call):
     
