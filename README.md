@@ -1,4 +1,4 @@
-# shader.js
+# shayda
 
 A simple interface to WebGL shaders which uses a proxy object to provide direct, efficient access to a program's uniforms and attributes; an intuitive API that does not sacrifice performance.
 
