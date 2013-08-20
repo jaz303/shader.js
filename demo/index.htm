@@ -3,10 +3,16 @@
 <html>
   <head>
     <title>shader.js demo</title>
+    <script>
+      var module = {exports: {}};
+      var exports = module.exports;
+    </script>
     <script src='../shader.js'></script>
     <script src='sylvester.js'></script>
     <script src='glUtils.js'></script>
     <script>
+      var shayda = module.exports;
+
       var gl, squareVerticesBuffer;
     
       function initBuffers() {
@@ -32,7 +38,7 @@
         gl.depthFunc(gl.LEQUAL);
         
         // Compile and link a shader program with the given source - returns a proxy object
-        var prog = Shader.compile(gl,
+        var prog = shayda.compile(gl,
                                   document.getElementById('vertex').textContent,
                                   document.getElementById('fragment').textContent);
         

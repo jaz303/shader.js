@@ -1,0 +1,22 @@
+{
+  "name": "shayda",
+  "version": "0.0.0",
+  "description": "A friendly interface around WebGL shader programs",
+  "main": "shader.js",
+  "devDependencies": {
+    "uglify-js": "~2.3.6"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jaz303/shayda.git"
+  },
+  "keywords": [
+    "webgl",
+    "shader"
+  ],
+  "author": "Jason Frame <jason@onehackoranother.com> (http://jasonframe.co.uk)",
+  "license": "MIT"
+}

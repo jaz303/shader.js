@@ -2,6 +2,12 @@
 
 A simple interface to WebGL shaders which uses a proxy object to provide direct, efficient access to a program's uniforms and attributes; an intuitive API that does not sacrifice performance.
 
+## Installation
+
+Browserify is recommended.
+
+    $ npm install shayda
+
 ## API
 
 Let's assuming the following vertex shader source:
@@ -23,10 +29,10 @@ And a very simple fragment shader:
     
 ### Compiling
 
-To compile the shader sources into a program, use `Shader.compile()`:
+To compile the shader sources into a program, use `shayda.compile()`:
 
     // gl is the context object returned from canvas.getContext("webgl")
-    var program = Shader.compile(gl, vertexShaderSource, fragmentShaderSource);
+    var program = shayda.compile(gl, vertexShaderSource, fragmentShaderSource);
     
 This method will throw an error on failure, and return a shader object on success. As well as references to the underlying GL context and program, this object is augmented with properties that enable attributes and uniforms to be manipulated directly by name - there's no longer any need to use unwieldy combinations of functions such as `getUniformLocation` and `uniformMatrix4fv`.
 
@@ -68,7 +74,7 @@ And to set the attribute from the currently bound buffer (the arguments are the 
     
 ## Demo
 
-A very simple demo, based on Mozilla's [Getting started with WebGL](https://developer.mozilla.org/en-US/docs/Web/WebGL/Getting_started_with_WebGL), can be found in the `demo` directory. The commented lines therein show `shader.js` in operation.
+A very simple demo, based on Mozilla's [Getting started with WebGL](https://developer.mozilla.org/en-US/docs/Web/WebGL/Getting_started_with_WebGL), can be found in the `demo` directory. The commented lines therein show `shayda` in operation.
 
 ## TODO
 
